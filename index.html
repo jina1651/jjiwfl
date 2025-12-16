@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide / 綜合學習指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .zh-text { font-family: 'Noto Sans TC', sans-serif; }
+        .correct-border { border-color: #10b981 !important; background-color: #ecfdf5 !important; }
+        .incorrect-border { border-color: #ef4444 !important; background-color: #fef2f2 !important; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="book-open" class="h-6 w-6 text-purple-600"></i>
+                    <span class="font-bold text-lg tracking-tight text-slate-900 hidden sm:block">MedStudy Guide</span>
+                    <span class="font-bold text-lg tracking-tight text-slate-900 sm:hidden">Study Guide</span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#quiz" class="text-slate-600 hover:text-pink-600 transition font-medium flex flex-col text-center leading-tight">
+                        <span class="text-xs font-bold">Quiz</span>
+                        <span class="text-[10px] zh-text">測驗</span>
+                    </a>
+                    <a href="#essay" class="text-slate-600 hover:text-pink-600 transition font-medium flex flex-col text-center leading-tight">
+                        <span class="text-xs font-bold">Essays</span>
+                        <span class="text-[10px] zh-text">申論</span>
+                    </a>
+                    <a href="#glossary" class="text-slate-600 hover:text-pink-600 transition font-medium flex flex-col text-center leading-tight">
+                        <span class="text-xs font-bold">Glossary</span>
+                        <span class="text-[10px] zh-text">詞彙</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-br from-purple-600 to-pink-500 text-white py-12 md:py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2">Comprehensive Study Guide</h1>
+            <h2 class="text-xl md:text-3xl font-medium mb-4 zh-text">綜合學習指南</h2>
+            <p class="text-lg md:text-xl text-purple-100 mb-1">Hypertension, Pressure Injury, and Diabetes</p>
+            <p class="text-base md:text-lg text-purple-100 mb-8 zh-text">高血壓、壓瘡與糖尿病</p>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="#quiz" class="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-purple-50 transition transform hover:-translate-y-1 flex items-center gap-2">
+                    <span>Start Quiz</span>
+                    <span class="text-sm text-purple-400 zh-text">| 開始測驗</span>
+                </a>
+                <a href="#glossary" class="bg-pink-600 text-white px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-pink-700 transition transform hover:-translate-y-1 flex items-center gap-2">
+                    <span>Search Terms</span>
+                    <span class="text-sm text-pink-200 zh-text">| 搜尋詞彙</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- Short Answer Quiz Section -->
+        <section id="quiz" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 bg-purple-100 rounded-lg text-purple-600">
+                        <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Interactive Quiz <span class="text-lg md:text-xl font-normal text-slate-500 zh-text ml-2">互動測驗</span></h2>
+                        <p class="text-slate-500">Test your knowledge / 測試你的知識</p>
+                    </div>
+                </div>
+                
+                <!-- Score Board -->
+                <div class="bg-white px-6 py-3 rounded-xl shadow-sm border border-purple-100 flex items-center gap-4">
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 uppercase font-bold tracking-wider">Score / 得分</p>
+                        <p class="text-2xl font-bold text-purple-600"><span id="current-score">0</span> / <span id="total-questions">10</span></p>
+                    </div>
+                    <div class="h-8 w-px bg-slate-200"></div>
+                    <button onclick="resetQuiz()" class="text-sm text-slate-500 hover:text-purple-600 flex items-center gap-1">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-2" id="quiz-container">
+                <!-- Quiz items will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- Essay Questions Section -->
+        <section id="essay" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="p-3 bg-pink-100 rounded-lg text-pink-600">
+                    <i data-lucide="file-text" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Essay Practice <span class="text-lg md:text-xl font-normal text-slate-500 zh-text ml-2">申論題練習</span></h2>
+                    <p class="text-slate-500">Draft your answers / 練習撰寫答案</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <ul class="divide-y divide-slate-100" id="essay-container">
+                    <!-- Essay items will be injected here by JS -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Glossary Section -->
+        <section id="glossary" class="scroll-mt-24">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="p-3 bg-fuchsia-100 rounded-lg text-fuchsia-600">
+                        <i data-lucide="book" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900">Glossary <span class="text-lg md:text-xl font-normal text-slate-500 zh-text ml-2">詞彙表</span></h2>
+                        <p class="text-slate-500">Key definitions / 關鍵定義</p>
+                    </div>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="relative w-full md:w-80">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i data-lucide="search" class="h-5 w-5 text-slate-400"></i>
+                    </div>
+                    <input type="text" id="searchInput" placeholder="Search / 搜尋..." 
+                           class="block w-full pl-10 pr-3 py-2 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition sm:text-sm">
+                </div>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" id="glossary-container">
+                <!-- Glossary items will be injected here by JS -->
+            </div>
+            <div id="no-results" class="hidden text-center py-12 text-slate-500">
+                <p>No terms found / 未找到相關詞彙</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2024 Medical Study Guide. Generated based on provided educational materials.</p>
+            <p class="text-sm mt-2 zh-text">僅供教育目的使用。</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and Logic -->
+    <script>
+        // Data Objects
+        const quizData = [
+            {
+                q_en: "How is hypertension in children and adolescents defined and classified?",
+                q_zh: "兒童及青少年的高血壓是如何定義與分類的？",
+                a_en: "Hypertension in children and adolescents is defined using percentiles based on age, gender, and height, rather than a fixed value. It is classified into Normal (< 90th percentile), Prehypertension (90th-95th percentiles or >120/80 mmHg), Stage 1 Hypertension (95th to modified 99th percentile), and Stage 2 Hypertension (> modified 99th percentile).",
+                a_zh: "兒童及青少年的高血壓是根據年齡、性別和身高的百分位數來定義，而非固定數值。分類如下：正常（< 90百分位）、高血壓前期（90-95百分位 或 >120/80 mmHg）、第1期高血壓（95至修正後99百分位之間）、第2期高血壓（> 修正後99百分位）。"
+            },
+            {
+                q_en: "What are the three primary objectives when evaluating a youth diagnosed with hypertension?",
+                q_zh: "評估診斷為高血壓的青少年時，三個主要目標是什麼？",
+                a_en: "The three key objectives are to determine if it is secondary hypertension, assess for related conditions like obesity, and evaluate for target organ damage.",
+                a_zh: "三個關鍵目標是：1) 確定是否為繼發性高血壓，2) 評估相關狀況（如肥胖），以及 3) 評估靶器官損害（Target Organ Damage）。"
+            },
+            {
+                q_en: "Describe the proper procedure for cleaning a pressure injury wound.",
+                q_zh: "請描述清潔壓瘡傷口的正確程序。",
+                a_en: "First wash hands and remove old dressing. Using a sterile cotton swab with normal saline, wipe the wound starting from the center and moving outwards in a circular motion, covering an area 2-3 cm larger than the wound. For infected wounds, use povidone-iodine, let sit for 2 minutes, then wipe off with saline.",
+                a_zh: "首先洗手並移除舊敷料。使用沾有生理食鹽水的無菌棉籤，由傷口中心向外以同心圓方式擦拭，範圍應比傷口大2-3公分。對於感染傷口，使用優碘（povidone-iodine），停留至少2分鐘後，再用生理食鹽水擦去。"
+            },
+            {
+                q_en: "What are the three diagnostic criteria for diabetes mellitus?",
+                q_zh: "糖尿病的三個診斷標準是什麼？",
+                a_en: "1) Classic symptoms (polyuria, polydipsia, polyphagia, weight loss) + random plasma glucose ≥200 mg/mL; 2) Fasting plasma glucose ≥126 mg/mL (≥8 hours fasting); 3) 2-hour plasma glucose ≥200 mg/mL during a 75g OGTT. (Must be confirmed on more than one occasion).",
+                a_zh: "若符合以下任一條件且再次確認：1) 典型症狀（多尿、多喝、多吃、體重減輕）加上隨機血糖 ≥200 mg/dL；2) 空腹血糖 ≥126 mg/dL（空腹至少8小時）；3) 75克口服葡萄糖耐受試驗（OGTT）2小時血糖 ≥200 mg/dL。"
+            },
+            {
+                q_en: "What is the primary goal of non-pharmacological treatment for diabetes?",
+                q_zh: "糖尿病非藥物治療的主要目標是什麼？",
+                a_en: "The primary treatment is Therapeutic Lifestyle Change (TLC). It consists of two main components: weight loss through regular moderate aerobic exercise (30-60 mins, >3 days/week) and dietary control (reducing fat/salt, avoiding processed foods).",
+                a_zh: "主要治療是「治療性生活型態改變」（TLC）。包含兩個主要部分：透過規律的中度有氧運動（每次30-60分鐘，每週>3天）來減重，以及飲食控制（減少脂肪/鹽分攝取，避免加工食品）。"
+            },
+            {
+                q_en: "List the high-risk groups for pressure injuries.",
+                q_zh: "列出壓瘡的高風險族群。",
+                a_en: "Long-term bedridden/limited mobility patients (stroke, fracture), the elderly, those with poor nutrition or fragile skin, individuals with fixed medical devices (NG tubes, oxygen masks), and unconscious patients or those with dulled sensation.",
+                a_zh: "長期臥床或行動受限者（如中風、骨折）、老年人、營養不良或皮膚脆弱者、使用固定醫療器材者（如鼻胃管、氧氣罩），以及意識不清或感覺遲鈍無法自行翻身者。"
+            },
+            {
+                q_en: "What are the major complications of uncontrolled high blood pressure?",
+                q_zh: "未控制的高血壓有哪些主要併發症？",
+                a_en: "Brain complications (stroke, TIA); Heart complications (myocardial infarction, angina, LV hypertrophy, heart failure); and Kidney complications (kidney disease, kidney failure).",
+                a_zh: "腦部併發症（中風、暫時性腦缺血）；心臟併發症（心肌梗塞、心絞痛、左心室肥大、心臟衰竭）；以及腎臟併發症（腎臟病、腎衰竭）。"
+            },
+            {
+                q_en: "Explain the 'honeymoon period' in Type 1 diabetes.",
+                q_zh: "解釋第一型糖尿病中的「蜜月期」。",
+                a_en: "A phase occurring in ~75% of Type 1 children shortly after diagnosis where insulin requirements decrease significantly (to ≤0.5 U/kg/day) while blood sugar remains controlled. It lasts weeks to years but ends as remaining β-cells are destroyed.",
+                a_zh: "約75%的第一型糖尿病兒童在診斷後不久會經歷此階段。期間胰島素需求顯著下降（≤0.5 U/kg/天），且血糖控制良好。此時期可持續數週至數年，最終因剩餘β細胞被破壞而結束。"
+            },
+            {
+                q_en: "What is the recommended treatment for a Stage 2 pressure injury?",
+                q_zh: "第2級壓瘡的建議治療方式為何？",
+                a_en: "Cover with a dressing 2-3 cm larger than the wound. Primary dressings are foam dressings or hydrocolloid dressings ('artificial skin') to protect the wound and maintain a healing environment.",
+                a_zh: "使用比傷口大2-3公分的敷料覆蓋。主要使用泡棉敷料（Foam）或親水性敷料（人工皮/Hydrocolloid），以保護傷口並維持良好的癒合環境。"
+            },
+            {
+                q_en: "What are the main characteristics of diabetic dyslipidemia?",
+                q_zh: "糖尿病血脂異常的主要特徵是什麼？",
+                a_en: "Increased blood triglycerides, decreased HDL cholesterol, and the presence of small, dense LDL particles. Total LDL concentration may be normal, but particle number is higher.",
+                a_zh: "血液中三酸甘油酯（Triglycerides）增加、高密度脂蛋白（HDL）膽固醇降低，以及出現小而緻密的低密度脂蛋白（LDL）粒子。總LDL濃度可能正常，但粒子數量較多。"
+            }
+        ];
+
+        const essayData = [
+            {
+                en: "Describe the comprehensive management plan for a newly diagnosed adolescent with Stage 1 hypertension, covering non-pharmacological and pharmacological treatments and criteria for drug therapy.",
+                zh: "請描述針對新診斷為第1期高血壓青少年的綜合管理計畫，涵蓋非藥物與藥物治療，以及啟動藥物治療的標準。"
+            },
+            {
+                en: "Compare and contrast the causes, clinical presentation, and treatment priorities for Diabetic Ketoacidosis (DKA) and Hyperglycemic Hyperosmolar State (HHS).",
+                zh: "比較糖尿病酮酸中毒 (DKA) 與高血糖高滲透壓狀態 (HHS) 的成因、臨床表現及治療優先順序。"
+            },
+            {
+                en: "Detail the step-by-step process of providing care for pressure injuries of different grades (Grade 1, 2, and 3+ with infection), specifying cleaning procedures and dressings.",
+                zh: "詳細說明不同等級壓瘡（第1級、第2級及感染的第3級以上）的護理步驟，特別說明清潔程序與合適的敷料。"
+            },
+            {
+                en: "Discuss the critical role of self-monitoring in diabetes management, explaining different methods (blood glucose, urine glucose, urine ketones), their purposes, advantages, and limitations.",
+                zh: "討論自我監測在糖尿病管理中的關鍵角色，解釋不同方法（血糖、尿糖、尿酮）的目的、優點及限制。"
+            },
+            {
+                en: "Explain the progression from Non-proliferative Diabetic Retinopathy (NPDR) to Proliferative Diabetic Retinopathy (PDR) and discuss primary treatment methods.",
+                zh: "解釋從非增殖性糖尿病視網膜病變 (NPDR) 進展至增殖性糖尿病視網膜病變 (PDR) 的過程，並討論主要的治療方法。"
+            }
+        ];
+
+        const glossaryData = [
+            { t_en: "ACE Inhibitor", t_zh: "血管張力素轉化酶抑制劑", d_en: "A class of antihypertensive medication. Safe/effective for adolescents but contraindicated in pregnancy.", d_zh: "一類抗高血壓藥物。對青少年安全有效，但孕婦禁用。" },
+            { t_en: "α-glucosidase inhibitor", t_zh: "α-葡萄糖苷酶抑制劑", d_en: "Oral antidiabetic drug inhibiting starch breakdown. Side effects: flatulence.", d_zh: "口服抗糖尿病藥，抑制澱粉分解，延緩吸收。副作用：脹氣、腹瀉。" },
+            { t_en: "Advanced Glycation Endproduct (AGE)", t_zh: "晚期糖基化終產物", d_en: "Harmful compounds formed when glucose binds to proteins. Damages cells/tissues.", d_zh: "葡萄糖與蛋白質結合形成的有害化合物。會破壞細胞與組織，導致神經病變。" },
+            { t_en: "Alginate Dressing", t_zh: "藻酸鹽敷料", d_en: "Dressing for pressure injuries with moderate exudate; can be placed flat or fill a cavity.", d_zh: "用於中度滲液壓瘡的敷料，可平貼或填塞傷口空腔。" },
+            { t_en: "ARB (Angiotensin-Receptor Blocker)", t_zh: "血管張力素受體阻斷劑", d_en: "Antihypertensive med. Safe for short-term use in youth; contraindicated in pregnancy.", d_zh: "抗高血壓藥。短期使用安全，孕婦禁用。" },
+            { t_en: "Antibacterial Dressing", t_zh: "抗菌敷料", d_en: "Contains agents like silver/honey/PHMB. Used for infected Stage 3+ injuries.", d_zh: "含銀離子、蜂蜜或PHMB等成分。用於感染的第3級以上壓瘡。" },
+            { t_en: "Biguanides", t_zh: "雙胍類", d_en: "Oral antidiabetic (e.g., metformin). Reduces liver glucose. No weight gain.", d_zh: "口服抗糖尿病藥（如 Metformin）。減少肝臟葡萄糖生成，不引起體重增加。" },
+            { t_en: "Biophysical Profile Scoring", t_zh: "生物物理概況評分", d_en: "Fetal health assessment combining ultrasound and amniotic fluid index.", d_zh: "結合超音波觀察（胎動、呼吸、張力）與羊水指數的胎兒健康評估。" },
+            { t_en: "Calcium Channel Blocker", t_zh: "鈣離子通道阻斷劑", d_en: "Antihypertensive med. Considered safe/effective for short-term use in adolescents.", d_zh: "抗高血壓藥。對青少年短期使用被認為安全有效。" },
+            { t_en: "DKA (Diabetic Ketoacidosis)", t_zh: "糖尿病酮酸中毒", d_en: "Acute Type 1 complication. Hyperglycemia, ketonemia, acidosis.", d_zh: "第1型糖尿病急性併發症。特徵為高血糖、酮血症及酸中毒。" },
+            { t_en: "Diabetic Retinopathy", t_zh: "糖尿病視網膜病變", d_en: "Eye complication involving retinal blood vessel damage.", d_zh: "涉及視網膜血管損傷的眼部併發症，成人失明主因之一。" },
+            { t_en: "Empowerment", t_zh: "賦權", d_en: "Education approach enabling patients to make informed decisions.", d_zh: "一種衛教模式，目標是讓患者有足夠資訊能自行決定護理方式。" },
+            { t_en: "Foam Dressing", t_zh: "泡棉敷料", d_en: "Soft, adhesive, water-locking dressing. Used for Stage 1-2 injuries.", d_zh: "柔軟、具鎖水功能的敷料。用於第1-2級壓瘡及多滲液傷口。" },
+            { t_en: "GDM (Gestational Diabetes)", t_zh: "妊娠糖尿病", d_en: "Diabetes diagnosed during pregnancy. Screened at 24-28 weeks.", d_zh: "懷孕期間首次診斷出的糖尿病，通常在24-28週篩檢。" },
+            { t_en: "Glitazones", t_zh: "噻唑烷二酮類", d_en: "Drugs increasing insulin sensitivity. Side effects: weight gain, edema.", d_zh: "增加胰島素敏感性的藥物。副作用包含體重增加與水腫。" },
+            { t_en: "Glycemic Index", t_zh: "升糖指數", d_en: "Measure of how food affects blood glucose vs reference food.", d_zh: "衡量食物對血糖影響程度的指標（相對於參考食物）。" },
+            { t_en: "Honeymoon Period", t_zh: "蜜月期", d_en: "Temporary phase in new Type 1 diabetes where insulin needs drop.", d_zh: "新診斷第1型糖尿病患者的暫時性階段，胰島素需求顯著下降。" },
+            { t_en: "Hydrocolloid Dressing", t_zh: "親水性敷料 (人工皮)", d_en: "Breathable, protective dressing for Stage 2 injuries.", d_zh: "透氣、具保護性的敷料，用於第2級壓瘡。" },
+            { t_en: "Hydrogel", t_zh: "水凝膠", d_en: "Gel for autolytic debridement of dry/necrotic wounds.", d_zh: "用於乾燥或壞死傷口自體清創的凝膠。" },
+            { t_en: "HHS", t_zh: "高血糖高滲透壓狀態", d_en: "Acute Type 2 complication. Severe hyperglycemia, high osmolality.", d_zh: "第2型糖尿病急性併發症。嚴重高血糖與高滲透壓，無明顯酮酸中毒。" },
+            { t_en: "Hypertension (Pediatric)", t_zh: "兒童高血壓", d_en: "BP ≥ 95th percentile for age, gender, height.", d_zh: "血壓 ≥ 同年齡、性別、身高之95百分位。" },
+            { t_en: "IFG (Impaired Fasting Glucose)", t_zh: "空腹血糖受損", d_en: "Prediabetes: Fasting glucose 110-125 mg/dL.", d_zh: "糖尿病前期：空腹血糖介於 110-125 mg/dL。" },
+            { t_en: "IGT (Impaired Glucose Tolerance)", t_zh: "葡萄糖耐受不良", d_en: "Prediabetes: 2-hour OGTT glucose 140-199 mg/dL.", d_zh: "糖尿病前期：OGTT 2小時血糖介於 140-199 mg/dL。" },
+            { t_en: "Metabolic Syndrome", t_zh: "代謝症候群", d_en: "Cluster of conditions increasing heart disease/diabetes risk.", d_zh: "包括腹部肥胖、高血脂、高血壓等狀況的組合，增加心臟病風險。" },
+            { t_en: "Microalbuminuria", t_zh: "微量白蛋白尿", d_en: "Early kidney disease sign. Albumin excretion 30-300 mg/day.", d_zh: "糖尿病腎病變的早期跡象。白蛋白排泄率 30-300 mg/day。" },
+            { t_en: "NPDR", t_zh: "非增殖性糖尿病視網膜病變", d_en: "Early stage retinopathy: microaneurysms, hemorrhages.", d_zh: "早期視網膜病變，特徵為微血管瘤、出血及硬滲出物。" },
+            { t_en: "OGTT", t_zh: "口服葡萄糖耐受試驗", d_en: "Test measuring glucose 2 hours after 75g glucose load.", d_zh: "飲用75克葡萄糖水後2小時測量血糖的測試。" },
+            { t_en: "Prediabetes", t_zh: "糖尿病前期", d_en: "Higher than normal glucose but not diabetic.", d_zh: "血糖高於正常但未達糖尿病診斷標準。" },
+            { t_en: "Pressure Injury", t_zh: "壓瘡 (壓力性損傷)", d_en: "Localized skin/tissue damage due to prolonged pressure.", d_zh: "因長期受壓導致的局部皮膚或組織損傷。" },
+            { t_en: "PDR", t_zh: "增殖性糖尿病視網膜病變", d_en: "Advanced retinopathy with new, abnormal blood vessel growth.", d_zh: "晚期視網膜病變，特徵為視網膜表面新生血管生長。" },
+            { t_en: "Secondary Hypertension", t_zh: "繼發性高血壓", d_en: "High BP caused by underlying condition (e.g., kidney disease).", d_zh: "由潛在疾病（如腎臟病）引起的高血壓，兒童常見。" },
+            { t_en: "Sulfonylureas", t_zh: "磺醯尿素類", d_en: "Oral drugs stimulating pancreatic insulin release.", d_zh: "刺激胰臟分泌胰島素的口服藥。副作用：體重增加、低血糖。" },
+            { t_en: "Target Organ Damage", t_zh: "靶器官損害", d_en: "Damage to heart, brain, kidneys, eyes due to hypertension.", d_zh: "因慢性高血壓導致心、腦、腎、眼等主要器官的損害。" },
+            { t_en: "TLC (Therapeutic Lifestyle Change)", t_zh: "治療性生活型態改變", d_en: "Main non-pharm treatment: Weight loss and dietary control.", d_zh: "主要的非藥物治療：包含減重（飲食/運動）與飲食控制。" },
+            { t_en: "Transparent Film", t_zh: "透明薄膜敷料", d_en: "Waterproof, semi-permeable protective outer layer.", d_zh: "防水、半透氣的保護性外層敷料。" },
+            { t_en: "Type 1 Diabetes", t_zh: "第1型糖尿病", d_en: "Autoimmune destruction of beta cells leading to insulin deficiency.", d_zh: "自體免疫破壞β細胞，導致胰島素絕對缺乏。" },
+            { t_en: "Type 2 Diabetes", t_zh: "第2型糖尿病", d_en: "Metabolic disorder: insulin resistance. Associated with obesity.", d_zh: "代謝異常：胰島素阻抗與相對缺乏。與肥胖高度相關。" }
+        ];
+
+        // Quiz State Management
+        let score = 0;
+        const quizStatus = new Array(quizData.length).fill(null); // null = unanswered, true = correct, false = incorrect
+
+        // Render Functions
+        const quizContainer = document.getElementById('quiz-container');
+        const essayContainer = document.getElementById('essay-container');
+        const glossaryContainer = document.getElementById('glossary-container');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('no-results');
+        const scoreDisplay = document.getElementById('current-score');
+        const totalDisplay = document.getElementById('total-questions');
+
+        // Initial Score Display
+        totalDisplay.innerText = quizData.length;
+
+        // Render Quiz with Input and Scoring
+        function renderQuiz() {
+            quizContainer.innerHTML = '';
+            quizData.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.id = `card-${index}`;
+                // Check if answered
+                let borderClass = 'border-slate-200';
+                if (quizStatus[index] === true) borderClass = 'correct-border';
+                if (quizStatus[index] === false) borderClass = 'incorrect-border';
+
+                card.className = `bg-white rounded-xl shadow-sm border ${borderClass} overflow-hidden hover:shadow-md transition duration-300`;
+                
+                card.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-purple-500 uppercase tracking-wide">Question ${index + 1}</span>
+                            ${quizStatus[index] !== null ? 
+                                (quizStatus[index] ? '<span class="text-green-600 font-bold text-sm"><i data-lucide="check" class="inline w-4 h-4"></i> Correct</span>' 
+                                : '<span class="text-red-500 font-bold text-sm"><i data-lucide="x" class="inline w-4 h-4"></i> Review</span>') 
+                                : ''}
+                        </div>
+                        <h3 class="mt-2 text-lg font-semibold text-slate-800">${item.q_en}</h3>
+                        <h3 class="mt-1 text-base font-medium text-slate-600 zh-text">${item.q_zh}</h3>
+                        
+                        <!-- Input Area -->
+                        <div class="mt-4">
+                            <textarea id="input-${index}" placeholder="Type your answer here first... / 請先在此輸入你的答案..." 
+                                class="w-full p-3 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-purple-200 focus:border-purple-400 outline-none transition" rows="2"></textarea>
+                        </div>
+
+                        <button onclick="toggleAnswer('ans-${index}', ${index})" id="btn-${index}" class="mt-4 w-full md:w-auto bg-purple-50 text-purple-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-100 transition flex items-center justify-center gap-1 focus:outline-none">
+                            <span>Show Answer / 顯示答案</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                        
+                        <div id="ans-${index}" class="hidden mt-4 pt-4 border-t border-slate-100 bg-slate-50 -mx-6 -mb-6 px-6 py-4">
+                            <p class="text-xs font-bold text-slate-400 uppercase mb-2">Correct Answer / 正確答案</p>
+                            <p class="text-slate-700 leading-relaxed mb-2">${item.a_en}</p>
+                            <p class="text-slate-600 leading-relaxed zh-text border-t border-slate-200 pt-2 mb-4">${item.a_zh}</p>
+                            
+                            <!-- Self Grading Buttons -->
+                            <div class="flex flex-col sm:flex-row gap-3 pt-2 border-t border-slate-200">
+                                <span class="text-sm font-medium text-slate-500 self-center">Did you get it right? / 你答對了嗎？</span>
+                                <div class="flex gap-2">
+                                    <button onclick="gradeQuestion(${index}, true)" class="flex-1 bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-200 transition">
+                                        Yes / 是 (Correct)
+                                    </button>
+                                    <button onclick="gradeQuestion(${index}, false)" class="flex-1 bg-red-100 text-red-700 px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-200 transition">
+                                        No / 否 (Incorrect)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                quizContainer.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // Toggle Quiz Answer
+        window.toggleAnswer = (id, index) => {
+            const element = document.getElementById(id);
+            const btn = document.getElementById(`btn-${index}`);
+            const isHidden = element.classList.contains('hidden');
+            
+            if (isHidden) {
+                element.classList.remove('hidden');
+                element.classList.add('fade-in');
+                btn.innerHTML = `<span>Hide Answer / 隱藏答案</span><i data-lucide="chevron-up" class="w-4 h-4"></i>`;
+            } else {
+                element.classList.add('hidden');
+                btn.innerHTML = `<span>Show Answer / 顯示答案</span><i data-lucide="chevron-down" class="w-4 h-4"></i>`;
+            }
+            lucide.createIcons();
+        };
+
+        // Grade Question
+        window.gradeQuestion = (index, isCorrect) => {
+            // Update score only if changing status or first time
+            if (quizStatus[index] === true && !isCorrect) score--;
+            if (quizStatus[index] !== true && isCorrect) score++;
+            
+            quizStatus[index] = isCorrect;
+            
+            // Update UI
+            scoreDisplay.innerText = score;
+            renderQuiz(); // Re-render to show border colors
+            
+            // Re-open the answered card
+            const ansDiv = document.getElementById(`ans-${index}`);
+            if(ansDiv) {
+                ansDiv.classList.remove('hidden');
+                document.getElementById(`btn-${index}`).innerHTML = `<span>Hide Answer / 隱藏答案</span><i data-lucide="chevron-up" class="w-4 h-4"></i>`;
+            }
+            lucide.createIcons();
+        };
+
+        // Reset Quiz
+        window.resetQuiz = () => {
+            if(confirm('Are you sure you want to reset your score? / 確定要重置分數嗎？')) {
+                score = 0;
+                quizStatus.fill(null);
+                scoreDisplay.innerText = 0;
+                renderQuiz();
+            }
+        };
+
+        // Render Essays with Draft Area
+        essayData.forEach((essay, index) => {
+            const li = document.createElement('li');
+            li.className = 'p-6 hover:bg-slate-50 transition';
+            li.innerHTML = `
+                <div class="flex gap-4 items-start">
+                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center font-bold text-sm mt-1">
+                        ${index + 1}
+                    </div>
+                    <div class="w-full">
+                        <p class="text-slate-800 font-medium leading-relaxed mb-1">${essay.en}</p>
+                        <p class="text-slate-600 font-normal zh-text mb-3">${essay.zh}</p>
+                        
+                        <button onclick="toggleDraft('draft-${index}')" class="text-xs font-bold text-pink-500 hover:text-pink-700 flex items-center gap-1 mb-2">
+                            <i data-lucide="pen-tool" class="w-3 h-3"></i> Practice Drafting / 練習擬答
+                        </button>
+                        
+                        <div id="draft-${index}" class="hidden">
+                            <textarea class="w-full p-4 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:bg-white focus:ring-2 focus:ring-pink-200 outline-none transition" rows="6" placeholder="Write your essay outline here... / 在此撰寫您的申論大綱..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            `;
+            essayContainer.appendChild(li);
+        });
+
+        window.toggleDraft = (id) => {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                el.classList.add('fade-in');
+            } else {
+                el.classList.add('hidden');
+            }
+        };
+
+        // Render Glossary
+        function renderGlossary(filter = "") {
+            glossaryContainer.innerHTML = '';
+            const filtered = glossaryData.filter(item => 
+                item.t_en.toLowerCase().includes(filter.toLowerCase()) || 
+                item.t_zh.includes(filter) ||
+                item.d_en.toLowerCase().includes(filter.toLowerCase()) ||
+                item.d_zh.includes(filter)
+            );
+
+            if (filtered.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                filtered.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-pink-300 transition';
+                    card.innerHTML = `
+                        <div class="mb-2">
+                            <h4 class="font-bold text-slate-900 text-lg">${item.t_en}</h4>
+                            <h4 class="font-medium text-fuchsia-600 text-base zh-text">${item.t_zh}</h4>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-sm text-slate-600 leading-relaxed border-l-2 border-slate-100 pl-2">${item.d_en}</p>
+                            <p class="text-sm text-slate-500 leading-relaxed zh-text border-l-2 border-fuchsia-100 pl-2">${item.d_zh}</p>
+                        </div>
+                    `;
+                    glossaryContainer.appendChild(card);
+                });
+            }
+        }
+
+        // Search Listener
+        searchInput.addEventListener('input', (e) => {
+            renderGlossary(e.target.value);
+        });
+
+        // Initial Render
+        renderQuiz();
+        renderGlossary();
+        lucide.createIcons();
+    </script>
+</body>
+</html>
